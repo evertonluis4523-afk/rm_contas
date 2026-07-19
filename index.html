@@ -31,19 +31,23 @@ input,textarea,select{font-family:inherit;color:inherit}
 .mono{font-family:var(--mono)}
 
 /* ---------- App bar ---------- */
-.appbar{position:sticky;top:0;z-index:40;background:var(--ink);color:#fff;border-bottom:3px solid var(--red)}
+.appbar{position:sticky;top:0;z-index:40;background:var(--surface);color:var(--ink);border-bottom:1px solid var(--line)}
 .appbar .in{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:14px;padding:9px 18px;flex-wrap:wrap}
 .appbar .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;font-size:13px}
 .appbar .brand b{color:var(--red);font-weight:800}
 .appbar .dot{width:7px;height:7px;background:var(--red);transform:rotate(45deg)}
 .appbar .spacer{flex:1}
-.appbar .who{font-size:11px;letter-spacing:.04em;color:#aeb4bd;display:flex;align-items:center;gap:7px}
+.appbar .who{font-size:11px;letter-spacing:.04em;color:var(--muted);display:flex;align-items:center;gap:7px}
 .appbar .who b{color:#fff;font-weight:600;letter-spacing:0}
 .btn{border:1px solid #3a4049;background:#2a2f37;color:#fff;border-radius:7px;padding:7px 12px;font-size:13px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:.12s}
 .btn:hover{background:#363c45;border-color:#4a515b}
 .btn.primary{background:var(--red);border-color:var(--red)}
 .btn.primary:hover{background:var(--red-d)}
 .btn.ghost{background:transparent}
+.appbar .btn{background:transparent;border-color:var(--line);color:var(--ink)}
+.appbar .btn:hover{background:var(--line-2);border-color:#d2d2cc}
+.appbar .btn.primary{background:var(--red);border-color:var(--red);color:#fff}
+.appbar .btn.primary:hover{background:var(--red-d)}
 .btn svg{width:15px;height:15px}
 
 /* ---------- Sheet ---------- */
@@ -208,7 +212,7 @@ table.list td.r,table.list th.r{text-align:right}
 #toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 #toast.ok{border-left:4px solid var(--ok)} #toast.err{border-left:4px solid var(--red)}
 
-.syncpill{font-size:10px;letter-spacing:.05em;display:inline-flex;align-items:center;gap:6px;color:#aeb4bd}
+.syncpill{font-size:10px;letter-spacing:.05em;display:inline-flex;align-items:center;gap:6px;color:var(--muted)}
 .syncpill .led{width:7px;height:7px;border-radius:50%;background:#6c7480}
 .syncpill.on .led{background:#3fbf6b;box-shadow:0 0 0 3px rgba(63,191,107,.2)}
 .syncpill.local .led{background:#b4690e}
