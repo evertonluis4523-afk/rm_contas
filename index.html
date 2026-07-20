@@ -1074,7 +1074,10 @@ function checkDue(force){
 /* ============================================================
    START
    ============================================================ */
-if("serviceWorker" in navigator){ navigator.serviceWorker.register("sw.js"); }
+if("serviceWorker" in navigator){
+  if(location.protocol.startsWith("http")){ navigator.serviceWorker.register("sw.js").catch(function(){}); }
+  else { navigator.serviceWorker.getRegistrations().then(function(rs){rs.forEach(function(r){r.unregister();});}).catch(function(){}); }
+}
 initAuth();
 updateNotifBtn();
 setInterval(()=>checkDue(false), 60*60*1000); // revê de hora em hora (vira o dia)
