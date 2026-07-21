@@ -364,7 +364,7 @@ table.list td.r,table.list th.r{text-align:right}
       <div class="filters">
         <div class="fi"><span class="lab">Status</span>
           <select id="f_status" onchange="render()">
-            <option value="">Todos</option><option value="aberto">Em aberto</option>
+            <option value="aberto" selected>Em aberto</option><option value="">Todos</option>
             <option value="vencido">Vencidas</option><option value="pendente">A vencer</option><option value="pago">Pagas</option>
           </select>
         </div>
@@ -993,7 +993,8 @@ function exportCSV(){
 }
 
 function clearFilters(){
-  ['f_status','f_forn','f_forma','f_mes','f_busca'].forEach(id=>$(id).value='');
+  ['f_forn','f_forma','f_mes','f_busca'].forEach(id=>$(id).value='');
+  $('f_status').value='aberto'; // limpar filtros não deve voltar a listar as pagas de novo
   render();
 }
 
