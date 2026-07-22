@@ -1,0 +1,17 @@
+{
+  "name": "Meus Gastos — Controle Mensal",
+  "short_name": "Meus Gastos",
+  "description": "Controle de gastos mensais, com relatórios e orçamentos. Funciona offline.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0f1115",
+  "theme_color": "#0c8f6b",
+  "orientation": "portrait",
+  "lang": "pt-BR",
+  "categories": ["finance", "productivity"],
+  "icons": [
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "icons/maskable.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ]
+}
