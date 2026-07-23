@@ -4,6 +4,12 @@ import { uid } from '../utils/id';
 import type { Account } from '../models';
 import { logHistory } from '../services/historyLogger';
 
+/** Mapa id→nome de conta, para exibir "Categoria | Conta" nas linhas de transação. */
+export function useAccountNameMap(): Map<string, string> {
+  const accounts = useLiveQuery(() => db.accounts.toArray(), []);
+  return new Map((accounts ?? []).map((a) => [a.id, a.name]));
+}
+
 export function useAccounts(includeArchived = false) {
   const accounts = useLiveQuery(async () => {
     const all = (await db.accounts.toArray()).sort((a, b) => a.createdAt - b.createdAt);

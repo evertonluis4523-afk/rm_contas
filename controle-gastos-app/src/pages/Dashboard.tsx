@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MonthTopBar } from '../components/layout/MonthTopBar';
 import { Card } from '../components/ui/Card';
@@ -15,18 +16,21 @@ import { useFinancialHealth } from '../hooks/useFinancialHealth';
 import { useInsights } from '../hooks/useInsights';
 import { useCategoryMap } from '../hooks/useCategories';
 import { useAccountBalances } from '../hooks/useAccountBalances';
+import { useAccountNameMap } from '../hooks/useAccounts';
 import { useBudgets } from '../hooks/useBudgets';
 import { formatMoney } from '../utils/currency';
-import { dayHeading, monthTitle } from '../utils/date';
+import { dayHeading } from '../utils/date';
 
 export function Dashboard() {
   const navigate = useNavigate();
+  const [hide, setHide] = useState(false);
   const { month } = useMonth();
   const data = useDashboard(month);
   const health = useFinancialHealth(month);
   const insights = useInsights(month);
   const catMap = useCategoryMap();
   const { total: totalBalance } = useAccountBalances();
+  const accMap = useAccountNameMap();
   const { budgets } = useBudgets();
   const generalBudget = budgets.find((b) => b.id === 'general');
 
@@ -55,39 +59,53 @@ export function Dashboard() {
         }
       />
       <main className="view stack">
-        {/* Saldo disponível */}
+        {/* Hero: saldo em contas (estilo Mobills) */}
         <Card elevated>
-          <div className="row-between">
-            <div>
-              <div className="dim" style={{ fontSize: 12.5, fontWeight: 600 }}>Saldo disponível</div>
-              <div className="mono" style={{ fontSize: 30, fontWeight: 800, marginTop: 2 }}>{formatMoney(totalBalance)}</div>
+          <div className="center">
+            <div className="dim" style={{ fontSize: 13, fontWeight: 600 }}>Saldo em contas</div>
+            <div className="row" style={{ justifyContent: 'center', gap: 8, marginTop: 4 }}>
+              <div className="mono" style={{ fontSize: 34, fontWeight: 800, letterSpacing: '-0.02em' }}>
+                {hide ? 'R$ ••••••' : formatMoney(totalBalance)}
+              </div>
+              <button className="btn icon-only ghost" onClick={() => setHide((h) => !h)} aria-label="Mostrar ou ocultar saldo" style={{ width: 36, height: 36 }}>
+                <Icon name={hide ? 'visibility_off' : 'visibility'} size={20} />
+              </button>
             </div>
             {health && (
-              <div className="center" style={{ minWidth: 74 }}>
-                <div style={{ width: 52, height: 52, borderRadius: '50%', display: 'grid', placeItems: 'center', border: `3px solid ${health.color}`, margin: '0 auto' }}>
-                  <span className="mono" style={{ fontWeight: 800, fontSize: 15 }}>{health.score}</span>
-                </div>
-                <div style={{ fontSize: 10.5, color: health.color, fontWeight: 700, marginTop: 4 }}>{health.label}</div>
+              <div className="row" style={{ justifyContent: 'center', marginTop: 8 }}>
+                <span className="pill" style={{ background: health.color + '24', color: health.color }}>
+                  Saúde financeira {health.score} · {health.label}
+                </span>
               </div>
             )}
           </div>
 
-          <div className="summary-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginTop: 16 }}>
-            <div style={{ background: 'var(--surface-2)', borderRadius: 14, padding: '11px 13px' }}>
-              <div className="dim" style={{ fontSize: 11.5, fontWeight: 600 }}>Receitas ({monthTitle(month).split(' ')[0]})</div>
-              <div className="mono" style={{ fontSize: 17, fontWeight: 700, color: 'var(--income)', marginTop: 2 }}>{formatMoney(data.income)}</div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginTop: 18 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 11, background: 'var(--surface-2)', borderRadius: 16, padding: '12px 13px' }}>
+              <span style={{ width: 44, height: 44, borderRadius: '50%', background: 'var(--income)', display: 'grid', placeItems: 'center', flex: '0 0 auto' }}>
+                <Icon name="arrow_upward" style={{ color: '#fff' }} />
+              </span>
+              <div style={{ minWidth: 0 }}>
+                <div className="dim" style={{ fontSize: 12, fontWeight: 600 }}>Receitas</div>
+                <div className="mono" style={{ fontSize: 15.5, fontWeight: 700, color: 'var(--income)' }}>{hide ? '•••' : formatMoney(data.income)}</div>
+              </div>
             </div>
-            <div style={{ background: 'var(--surface-2)', borderRadius: 14, padding: '11px 13px' }}>
-              <div className="dim" style={{ fontSize: 11.5, fontWeight: 600 }}>Despesas</div>
-              <div className="mono" style={{ fontSize: 17, fontWeight: 700, marginTop: 2 }}>{formatMoney(data.expense)}</div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 11, background: 'var(--surface-2)', borderRadius: 16, padding: '12px 13px' }}>
+              <span style={{ width: 44, height: 44, borderRadius: '50%', background: 'var(--expense)', display: 'grid', placeItems: 'center', flex: '0 0 auto' }}>
+                <Icon name="arrow_downward" style={{ color: '#fff' }} />
+              </span>
+              <div style={{ minWidth: 0 }}>
+                <div className="dim" style={{ fontSize: 12, fontWeight: 600 }}>Despesas</div>
+                <div className="mono" style={{ fontSize: 15.5, fontWeight: 700, color: 'var(--expense)' }}>{hide ? '•••' : formatMoney(data.expense)}</div>
+              </div>
             </div>
           </div>
 
           {generalBudget && (
-            <div style={{ marginTop: 14 }}>
+            <div style={{ marginTop: 16 }}>
               <ProgressBar value={budgetPct} tone={budgetTone} />
               <div className="row-between" style={{ marginTop: 6, fontSize: 12 }}>
-                <span className="dim">Meta do mês: {budgetPct}%</span>
+                <span className="dim">Planejamento: {budgetPct}%</span>
                 <span className="dim">Limite {formatMoney(generalBudget.amount)}</span>
               </div>
             </div>
@@ -137,7 +155,7 @@ export function Dashboard() {
             <div className="section-title" style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--text-2)', margin: '10px 2px 0' }}>Próximas contas</div>
             <div className="list">
               {data.upcomingBills.map((t) => (
-                <TransactionRow key={t.id} tx={t} category={catMap.get(t.categoryId)} />
+                <TransactionRow key={t.id} tx={t} category={catMap.get(t.categoryId)} accountName={t.accountId ? accMap.get(t.accountId) : undefined} />
               ))}
             </div>
           </>
@@ -206,7 +224,7 @@ export function Dashboard() {
         ) : (
           <div className="list">
             {data.recent.map((t) => (
-              <TransactionRow key={t.id} tx={t} category={catMap.get(t.categoryId)} onClick={() => navigate(`/lancamentos?edit=${t.id}`)} />
+              <TransactionRow key={t.id} tx={t} category={catMap.get(t.categoryId)} accountName={t.accountId ? accMap.get(t.accountId) : undefined} onClick={() => navigate(`/lancamentos?edit=${t.id}`)} />
             ))}
           </div>
         )}

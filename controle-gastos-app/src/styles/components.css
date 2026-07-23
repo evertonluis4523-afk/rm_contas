@@ -37,7 +37,7 @@
   bottom: calc(var(--tabbar-h) + var(--safe-bottom) + 14px);
   width: 60px; height: 60px; border-radius: 20px; padding: 0;
   background: linear-gradient(135deg, var(--primary), var(--primary-2));
-  box-shadow: 0 12px 28px rgba(255, 138, 0, 0.45);
+  box-shadow: 0 12px 28px rgba(123, 47, 247, 0.5);
 }
 .btn.fab .msr { font-size: 28px; color: var(--on-primary); }
 
@@ -90,16 +90,35 @@ textarea.input { resize: none; min-height: 66px; }
 .tabbar {
   position: fixed; z-index: 34; left: 0; right: 0; bottom: 0;
   height: calc(var(--tabbar-h) + var(--safe-bottom)); padding-bottom: var(--safe-bottom);
-  background: color-mix(in srgb, var(--bg-elevated) 90%, transparent);
+  background: color-mix(in srgb, var(--bg-elevated) 92%, transparent);
   backdrop-filter: saturate(1.4) blur(16px); -webkit-backdrop-filter: saturate(1.4) blur(16px);
-  border-top: 1px solid var(--line-soft); display: flex; max-width: var(--max-w); margin: 0 auto;
+  border-top: 1px solid var(--line-soft); display: flex; align-items: stretch;
+  max-width: var(--max-w); margin: 0 auto;
 }
 .tabbar .tab {
-  flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
-  color: var(--text-3); font-size: 10.5px; font-weight: 600; padding-top: 8px; transition: color var(--dur-fast);
+  flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+  color: var(--text-3); font-size: 10.5px; font-weight: 600; padding-top: 6px; transition: color var(--dur-fast) var(--ease);
 }
+/* Pílula de realce atrás do ícone (aba ativa — estilo Mobills) */
+.tabbar .tab .tab-pill {
+  display: grid; place-items: center; width: 52px; height: 30px; border-radius: var(--radius-pill);
+  transition: background var(--dur-fast) var(--ease);
+}
+.tabbar .tab .tab-pill .msr { font-size: 22px; }
+.tabbar .tab .tab-label { line-height: 1; }
 .tabbar .tab.on { color: var(--primary); }
-.tabbar .tab .msr { font-size: 23px; }
+.tabbar .tab.on .tab-pill { background: var(--primary-soft); }
+
+/* Slot central do FAB */
+.tabbar .tab-fab-slot { flex: 1; display: flex; align-items: flex-start; justify-content: center; position: relative; }
+.tabbar .tab-fab {
+  position: absolute; top: -22px; width: 58px; height: 58px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--primary-2));
+  display: grid; place-items: center; box-shadow: 0 8px 22px rgba(123, 47, 247, 0.5);
+  transition: transform var(--dur-fast) var(--ease);
+}
+.tabbar .tab-fab:active { transform: scale(0.92); }
+.tabbar .tab-fab .msr { font-size: 30px; color: #fff; font-variation-settings: 'wght' 500; }
 
 /* ---------- Listas ---------- */
 .list { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); }
