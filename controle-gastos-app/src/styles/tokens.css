@@ -1,20 +1,20 @@
 /* ============================================================
    Carteira Everton — Design Tokens
-   Tema escuro premium · acento roxo (estilo Mobills)
+   Tema escuro premium · acento laranja (estilo Orange Finance)
    ============================================================ */
 :root {
   /* Cores base */
   --bg: #0F1115;
   --bg-elevated: #14161b;
   --surface: #1A1D22;
-  --surface-2: #22252c;
+  --surface-2: #21252C;
   --surface-3: #2a2e36;
 
-  /* Marca (roxo/violeta) */
-  --primary: #7B2FF7;
-  --primary-2: #9D5CFF;
-  --primary-soft: #241640;
-  --on-primary: #FFFFFF;
+  /* Marca (laranja) */
+  --primary: #FF8A00;
+  --primary-2: #FFB347;
+  --primary-soft: #3a2412;
+  --on-primary: #14100a;
 
   /* Semânticas */
   --income: #2ECC71;
@@ -46,7 +46,7 @@
   --shadow-sm: 0 4px 14px rgba(0, 0, 0, 0.28);
   --shadow-md: 0 10px 28px rgba(0, 0, 0, 0.36);
   --shadow-lg: 0 18px 44px rgba(0, 0, 0, 0.46);
-  --shadow-primary: 0 10px 26px rgba(123, 47, 247, 0.45);
+  --shadow-primary: 0 10px 24px rgba(255, 138, 0, 0.4);
 
   /* Tipografia */
   --font-display: 'Sora', 'Inter', system-ui, sans-serif;
@@ -82,8 +82,8 @@
   --surface: #FFFFFF;
   --surface-2: #F0F1F4;
   --surface-3: #E7E9ED;
-  --primary-soft: #EDE4FF;
-  --on-primary: #FFFFFF;
+  --primary-soft: #FFEBD2;
+  --on-primary: #23140a;
   --income-soft: #E4F7EC;
   --expense-soft: #FDEAEA;
   --warn-soft: #FBF1DA;

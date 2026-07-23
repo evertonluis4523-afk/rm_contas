@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { PageTopBar } from '../components/layout/PageTopBar';
 import { Card } from '../components/ui/Card';
 import { Icon } from '../components/ui/Icon';
@@ -10,6 +11,7 @@ import { AccountFormSheet } from '../components/forms/AccountFormSheet';
 import type { Account } from '../models';
 
 export function Accounts() {
+  const navigate = useNavigate();
   const { accounts } = useAccounts();
   const { balances } = useAccountBalances();
   const [open, setOpen] = useState(false);
@@ -18,12 +20,16 @@ export function Accounts() {
   return (
     <>
       <PageTopBar
-        title="Contas"
-        back
+        title="Carteira"
         rightAction={
-          <button className="btn icon-only ghost" onClick={() => { setEditing(null); setOpen(true); }} aria-label="Nova conta">
-            <Icon name="add" />
-          </button>
+          <div className="row" style={{ gap: 6 }}>
+            <button className="btn icon-only ghost" onClick={() => navigate('/cartoes')} aria-label="Cartões de crédito">
+              <Icon name="credit_card" />
+            </button>
+            <button className="btn icon-only ghost" onClick={() => { setEditing(null); setOpen(true); }} aria-label="Nova conta">
+              <Icon name="add" />
+            </button>
+          </div>
         }
       />
       <main className="view stack">
@@ -47,6 +53,19 @@ export function Accounts() {
             ))}
           </div>
         )}
+
+        <Card interactive onClick={() => navigate('/cartoes')} className="row-between" style={{ marginTop: 4 }}>
+          <div className="row" style={{ gap: 12 }}>
+            <span className="avatar" style={{ background: 'var(--primary-soft)', color: 'var(--primary)' }}>
+              <Icon name="credit_card" />
+            </span>
+            <div>
+              <div style={{ fontWeight: 700, fontSize: 14.5 }}>Cartões de crédito</div>
+              <div className="dim" style={{ fontSize: 11.5 }}>Limite, fatura e parcelas</div>
+            </div>
+          </div>
+          <Icon name="chevron_right" style={{ color: 'var(--text-3)' }} />
+        </Card>
       </main>
       <AccountFormSheet open={open} onClose={() => setOpen(false)} editing={editing} />
     </>

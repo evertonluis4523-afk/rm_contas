@@ -37,7 +37,7 @@
   bottom: calc(var(--tabbar-h) + var(--safe-bottom) + 14px);
   width: 60px; height: 60px; border-radius: 20px; padding: 0;
   background: linear-gradient(135deg, var(--primary), var(--primary-2));
-  box-shadow: 0 12px 28px rgba(123, 47, 247, 0.5);
+  box-shadow: 0 12px 28px rgba(255, 138, 0, 0.45);
 }
 .btn.fab .msr { font-size: 28px; color: var(--on-primary); }
 
@@ -104,21 +104,21 @@ textarea.input { resize: none; min-height: 66px; }
   display: grid; place-items: center; width: 52px; height: 30px; border-radius: var(--radius-pill);
   transition: background var(--dur-fast) var(--ease);
 }
-.tabbar .tab .tab-pill .msr { font-size: 22px; }
+.tabbar .tab .tab-pill .msr { font-size: 23px; }
 .tabbar .tab .tab-label { line-height: 1; }
 .tabbar .tab.on { color: var(--primary); }
-.tabbar .tab.on .tab-pill { background: var(--primary-soft); }
+/* estilo orange-finance: aba ativa apenas na cor (sem pílula de fundo) */
 
-/* Slot central do FAB */
+/* Slot central do FAB (quadrado arredondado, elevado) */
 .tabbar .tab-fab-slot { flex: 1; display: flex; align-items: flex-start; justify-content: center; position: relative; }
 .tabbar .tab-fab {
-  position: absolute; top: -22px; width: 58px; height: 58px; border-radius: 50%;
-  background: linear-gradient(135deg, var(--primary), var(--primary-2));
-  display: grid; place-items: center; box-shadow: 0 8px 22px rgba(123, 47, 247, 0.5);
+  position: absolute; top: -22px; width: 56px; height: 56px; border-radius: 20px;
+  background: linear-gradient(135deg, var(--primary-2), var(--primary));
+  display: grid; place-items: center; box-shadow: 0 10px 24px rgba(255, 138, 0, 0.4);
   transition: transform var(--dur-fast) var(--ease);
 }
 .tabbar .tab-fab:active { transform: scale(0.92); }
-.tabbar .tab-fab .msr { font-size: 30px; color: #fff; font-variation-settings: 'wght' 500; }
+.tabbar .tab-fab .msr { font-size: 28px; color: var(--on-primary); font-variation-settings: 'wght' 600; }
 
 /* ---------- Listas ---------- */
 .list { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); }

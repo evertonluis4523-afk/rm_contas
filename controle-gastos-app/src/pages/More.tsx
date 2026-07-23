@@ -1,87 +1,62 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useLiveQuery } from 'dexie-react-hooks';
 import { PageTopBar } from '../components/layout/PageTopBar';
-import { Seg } from '../components/ui/Seg';
+import { Card } from '../components/ui/Card';
 import { Icon } from '../components/ui/Icon';
+import { db } from '../database/db';
 
-type Section = 'manage' | 'track' | 'about';
-
-interface Item {
-  to: string;
-  icon: string;
-  title: string;
-  subtitle: string;
-}
-
-const GROUPS: Record<Section, Item[]> = {
-  manage: [
-    { to: '/contas', icon: 'account_balance', title: 'Contas', subtitle: 'Bancos, carteira e dinheiro' },
-    { to: '/cartoes', icon: 'credit_card', title: 'Cartões de crédito', subtitle: 'Limite, fatura e parcelas' },
-    { to: '/metas', icon: 'flag', title: 'Objetivos', subtitle: 'Metas financeiras' },
-    { to: '/categorias', icon: 'category', title: 'Categorias', subtitle: 'Receitas e despesas' },
-    { to: '/orcamentos', icon: 'savings', title: 'Planejamento', subtitle: 'Limites mensais por categoria' },
-    { to: '/backup', icon: 'cloud_upload', title: 'Backup', subtitle: 'Exportar e importar dados' },
-  ],
-  track: [
-    { to: '/relatorios', icon: 'bar_chart', title: 'Gráficos e relatórios', subtitle: 'PDF, Excel e CSV' },
-    { to: '/calendario', icon: 'calendar_month', title: 'Calendário', subtitle: 'Contas e eventos por dia' },
-    { to: '/busca', icon: 'search', title: 'Buscar', subtitle: 'Encontre qualquer lançamento' },
-    { to: '/historico', icon: 'history', title: 'Histórico', subtitle: 'Tudo que foi criado ou alterado' },
-  ],
-  about: [
-    { to: '/configuracoes', icon: 'settings', title: 'Configurações', subtitle: 'Tema, PIN, notificações e mais' },
-  ],
-};
+const ITEMS = [
+  { to: '/relatorios', icon: 'bar_chart', label: 'Relatórios', desc: 'PDF, Excel, CSV e gráficos' },
+  { to: '/calendario', icon: 'calendar_month', label: 'Calendário', desc: 'Contas e eventos do mês' },
+  { to: '/metas', icon: 'flag', label: 'Metas', desc: 'Viagem, casa, reserva...' },
+  { to: '/orcamentos', icon: 'savings', label: 'Planejamento', desc: 'Limites mensais por categoria' },
+  { to: '/categorias', icon: 'category', label: 'Categorias', desc: 'Personalize ícones e cores' },
+  { to: '/busca', icon: 'search', label: 'Buscar', desc: 'Encontre qualquer lançamento' },
+  { to: '/backup', icon: 'cloud_upload', label: 'Backup', desc: 'Exportar e importar dados' },
+  { to: '/configuracoes', icon: 'settings', label: 'Configurações', desc: 'PIN, Face ID, tema e mais' },
+];
 
 export function More() {
   const navigate = useNavigate();
-  const [section, setSection] = useState<Section>('manage');
+  const history = useLiveQuery(() => db.history.orderBy('timestamp').reverse().limit(8).toArray(), []);
 
   return (
     <>
-      <PageTopBar
-        title="Mais"
-        rightAction={
-          <button className="btn icon-only ghost" onClick={() => navigate('/configuracoes')} aria-label="Configurações">
-            <Icon name="settings" />
-          </button>
-        }
-      />
+      <PageTopBar title="Mais" />
       <main className="view stack">
-        <Seg
-          options={[
-            { id: 'manage', label: 'Gerenciar' },
-            { id: 'track', label: 'Acompanhar' },
-            { id: 'about', label: 'Sobre' },
-          ]}
-          value={section}
-          onChange={(v) => setSection(v as Section)}
-        />
-
-        <div className="list">
-          {GROUPS[section].map((item) => (
-            <div key={item.to} className="list-item" onClick={() => navigate(item.to)} role="button">
-              <div className="li-ic">
-                <Icon name={item.icon} />
-              </div>
+        <Card pad={false} style={{ padding: '6px 16px' }}>
+          {ITEMS.map((i) => (
+            <div key={i.to} className="list-item" onClick={() => navigate(i.to)} role="button" style={{ cursor: 'pointer', gap: 13 }}>
+              <span style={{ width: 42, height: 42, borderRadius: 14, display: 'grid', placeItems: 'center', flexShrink: 0, background: 'var(--primary-soft)' }}>
+                <Icon name={i.icon} style={{ color: 'var(--primary)' }} />
+              </span>
               <div className="li-mid">
-                <div className="li-t">{item.title}</div>
-                <div className="li-s">{item.subtitle}</div>
+                <div className="li-t">{i.label}</div>
+                <div className="li-s">{i.desc}</div>
               </div>
-              <div className="li-r">
-                <Icon name="chevron_right" />
-              </div>
+              <Icon name="chevron_right" style={{ color: 'var(--text-3)' }} />
             </div>
           ))}
-        </div>
+        </Card>
 
-        {section === 'about' && (
-          <div className="card pad dim center" style={{ fontSize: 12.5, marginTop: 4 }}>
-            <b style={{ color: 'var(--text)' }}>Carteira Everton</b>
-            <br />
-            Controle de gastos pessoal · 100% offline, dados salvos apenas neste aparelho.
-          </div>
+        {history && history.length > 0 && (
+          <Card pad={false} style={{ padding: '16px 16px 6px' }}>
+            <h2 style={{ fontSize: 16, fontWeight: 700, marginBottom: 4 }}>Histórico recente</h2>
+            {history.map((h) => (
+              <div className="list-item" key={h.id} style={{ gap: 11 }}>
+                <Icon name="history" size={18} style={{ color: 'var(--text-3)' }} />
+                <div className="li-mid">
+                  <div style={{ fontSize: 13 }}>{h.summary}</div>
+                  <div className="li-s">{new Date(h.timestamp).toLocaleDateString('pt-BR')}</div>
+                </div>
+              </div>
+            ))}
+          </Card>
         )}
+
+        <div className="dim center" style={{ fontSize: 12, padding: '4px 8px' }}>
+          <b style={{ color: 'var(--text)' }}>Carteira Everton</b> · 100% offline, dados só neste aparelho.
+        </div>
       </main>
     </>
   );

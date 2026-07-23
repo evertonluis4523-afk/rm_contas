@@ -2,11 +2,11 @@ import { NavLink } from 'react-router-dom';
 import { Icon } from '../ui/Icon';
 
 const TABS = [
-  { to: '/', label: 'Principal', icon: 'grid_view' },
-  { to: '/lancamentos', label: 'Transações', icon: 'sync_alt' },
+  { to: '/', label: 'Início', icon: 'home' },
+  { to: '/lancamentos', label: 'Extrato', icon: 'receipt_long' },
   { to: '__fab__', label: '', icon: '' },
-  { to: '/orcamentos', label: 'Planejamento', icon: 'flag' },
-  { to: '/mais', label: 'Mais', icon: 'more_horiz' },
+  { to: '/contas', label: 'Carteira', icon: 'account_balance_wallet' },
+  { to: '/mais', label: 'Mais', icon: 'apps' },
 ] as const;
 
 export function BottomNav({ onFabClick }: { onFabClick: () => void }) {
