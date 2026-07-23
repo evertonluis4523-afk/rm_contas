@@ -55,7 +55,7 @@ export function PinPad({ length = 4, onComplete, error, disabled }: PinPadProps)
               key={i}
               onClick={backspace}
               className="row"
-              style={{ justifyContent: 'center', height: 62, borderRadius: '50%', color: 'var(--text-2)' }}
+              style={{ justifyContent: 'center', width: 68, height: 68, justifySelf: 'center', borderRadius: '50%', color: 'var(--text-2)' }}
               aria-label="Apagar"
             >
               <Icon name="backspace" />
@@ -66,7 +66,8 @@ export function PinPad({ length = 4, onComplete, error, disabled }: PinPadProps)
               onClick={() => press(k)}
               disabled={disabled}
               style={{
-                height: 62, borderRadius: '50%', fontSize: 22, fontWeight: 700, background: 'var(--surface-2)', color: 'var(--text)',
+                width: 68, height: 68, justifySelf: 'center', borderRadius: '50%', fontSize: 22, fontWeight: 700,
+                background: 'var(--surface-2)', color: 'var(--text)',
               }}
             >
               {k}
