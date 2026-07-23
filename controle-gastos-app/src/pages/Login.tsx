@@ -78,7 +78,7 @@ export function Login() {
 
       {stage === 'welcome' && (
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="center stack" style={{ maxWidth: 320 }}>
-          <h1 style={{ fontSize: 22, fontWeight: 800 }}>Bem-vindo ao Orange Finance</h1>
+          <h1 style={{ fontSize: 22, fontWeight: 800 }}>Bem-vindo à Carteira Everton</h1>
           <p className="muted" style={{ fontSize: 14 }}>Proteja seus dados financeiros com um PIN local. Tudo funciona offline, direto no seu aparelho.</p>
           <div className="stack" style={{ marginTop: 18, width: '100%' }}>
             <Button variant="primary" icon="lock" onClick={() => setStage('create')}>Criar PIN de segurança</Button>

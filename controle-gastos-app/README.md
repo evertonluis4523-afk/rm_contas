@@ -1,4 +1,4 @@
-# Orange Finance
+# Carteira Everton
 
 Aplicativo financeiro pessoal premium: rápido, offline-first, com contas, cartões,
 metas, orçamentos, saúde financeira, insights automáticos e relatórios exportáveis.
@@ -63,7 +63,7 @@ rm -rf ../controle-gastos/*
 cp -r dist/* ../controle-gastos/
 cd ..
 git add controle-gastos controle-gastos-app
-git commit -m "Atualiza Orange Finance"
+git commit -m "Atualiza Carteira Everton"
 git push
 ```
 

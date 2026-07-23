@@ -1,6 +1,6 @@
 # ⚠️ Pasta gerada automaticamente — não edite aqui
 
-Este diretório contém o **build de produção** do app **Orange Finance**,
+Este diretório contém o **build de produção** do app **Carteira Everton**,
 publicado pelo GitHub Pages em:
 `https://<usuario>.github.io/rm_contas/controle-gastos/`
 

@@ -15,8 +15,8 @@ export default defineConfig({
       includeAssets: ['icons/icon-192.svg', 'icons/icon-512.svg', 'icons/maskable-512.svg'],
       manifest: {
         id: BASE_PATH,
-        name: 'Orange Finance',
-        short_name: 'Orange Finance',
+        name: 'Carteira Everton',
+        short_name: 'Carteira',
         description: 'Aplicativo financeiro pessoal — controle de gastos, contas, cartões e metas, 100% offline.',
         start_url: BASE_PATH,
         scope: BASE_PATH,

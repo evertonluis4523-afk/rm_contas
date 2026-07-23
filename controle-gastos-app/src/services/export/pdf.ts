@@ -16,7 +16,7 @@ export async function exportReportPdf(rows: ReportRow[], meta: ReportMeta): Prom
   doc.setTextColor(255, 255, 255);
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(18);
-  doc.text('Orange Finance', 40, 34);
+  doc.text('Carteira Everton', 40, 34);
   doc.setFontSize(11);
   doc.setFont('helvetica', 'normal');
   doc.text(meta.title, 40, 52);

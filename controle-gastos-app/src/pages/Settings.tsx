@@ -162,7 +162,7 @@ export function Settings() {
         </div>
 
         <div className="card pad dim center" style={{ fontSize: 12, marginTop: 8 }}>
-          Orange Finance — todos os dados ficam salvos apenas neste aparelho, sem servidor.
+          Carteira Everton — todos os dados ficam salvos apenas neste aparelho, sem servidor.
         </div>
       </main>
 

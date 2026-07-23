@@ -10,7 +10,7 @@
  * sendo o mecanismo principal e sempre disponível como alternativa.
  */
 
-const RP_NAME = 'Orange Finance';
+const RP_NAME = 'Carteira Everton';
 
 export function isWebAuthnSupported(): boolean {
   return typeof window !== 'undefined' && !!window.PublicKeyCredential;

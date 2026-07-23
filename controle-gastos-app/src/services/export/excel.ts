@@ -4,7 +4,7 @@ import type { ReportRow, ReportMeta } from './types';
 export async function exportReportExcel(rows: ReportRow[], meta: ReportMeta): Promise<Blob> {
   const { default: ExcelJS } = await import('exceljs');
   const workbook = new ExcelJS.Workbook();
-  workbook.creator = 'Orange Finance';
+  workbook.creator = 'Carteira Everton';
   workbook.created = new Date(meta.generatedAt);
 
   const sheet = workbook.addWorksheet('Lançamentos', { views: [{ state: 'frozen', ySplit: 1 }] });

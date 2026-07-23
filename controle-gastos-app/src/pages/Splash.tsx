@@ -37,7 +37,7 @@ export function Splash() {
         transition={{ delay: 0.2, duration: 0.4 }}
         style={{ fontSize: 24, fontWeight: 800, letterSpacing: '-0.01em' }}
       >
-        Orange <span style={{ color: 'var(--primary)' }}>Finance</span>
+        Carteira <span style={{ color: 'var(--primary)' }}>Everton</span>
       </motion.h1>
 
       <motion.div

@@ -21,7 +21,7 @@ export function Backup() {
   async function handleExport() {
     if (protect && password.length < 4) return show('A senha deve ter ao menos 4 caracteres');
     const blob = await exportBackup(protect ? password : undefined);
-    await shareOrDownload(blob, `orange-finance-backup-${ymd(new Date())}.json`, 'Backup Orange Finance');
+    await shareOrDownload(blob, `carteira-everton-backup-${ymd(new Date())}.json`, 'Backup Carteira Everton');
     show('Backup exportado');
   }
 
